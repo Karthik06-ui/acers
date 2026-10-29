@@ -1,4 +1,5 @@
 services:
+  # ── Backend Web Service ──────────────────────────────────────────
   - type: web
     name: seap-ces-backend
     runtime: python
@@ -17,9 +18,9 @@ services:
       - key: ALLOWED_HOSTS
         value: ".onrender.com,localhost,127.0.0.1"
       - key: CORS_ALLOWED_ORIGINS
-        value: ""
+        value: "https://seap-ces-frontend.onrender.com"
       - key: CSRF_TRUSTED_ORIGINS
-        value: ""
+        value: "https://seap-ces-frontend.onrender.com"
       - key: SESSION_COOKIE_SECURE
         value: "True"
       - key: CSRF_COOKIE_SECURE
@@ -27,9 +28,22 @@ services:
       - key: SECURE_HSTS_SECONDS
         value: "31536000"
 
+  # ── Frontend Static Site ─────────────────────────────────────────
+  - type: static
+    name: seap-ces-frontend
+    rootDir: frontend
+    buildCommand: npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: "https://seap-ces-backend.onrender.com/api"
+
 databases:
   - name: seap-ces-db
     databaseName: seapcesdb
     user: seapces
     plan: free
-
