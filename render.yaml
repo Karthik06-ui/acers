@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: seap-ces-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: ./build.sh
+    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: seap-ces-db
+          property: connectionString
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com,localhost,127.0.0.1"
+      - key: CORS_ALLOWED_ORIGINS
+        value: ""
+      - key: CSRF_TRUSTED_ORIGINS
+        value: ""
+      - key: SESSION_COOKIE_SECURE
+        value: "True"
+      - key: CSRF_COOKIE_SECURE
+        value: "True"
+      - key: SECURE_HSTS_SECONDS
+        value: "31536000"
+
+databases:
+  - name: seap-ces-db
+    databaseName: seapcesdb
+    user: seapces
+    plan: free
+
