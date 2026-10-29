@@ -169,17 +169,20 @@ npm run test:e2e
    - Create a **Web Service** connected to your repo:
      - **Root Directory**: `backend`
      - **Build Command**: `./build.sh`
-     - **Start Command**: `gunicorn config.wsgi:application --bind 0.0.0.0:$PORT`
+     - **Start Command**: `./start.sh`
      - **Environment Variables**:
        - `DEBUG`: `False`
        - `SECRET_KEY`: *(Generate a secure random 50+ character string)*
        - `DATABASE_URL`: *(Paste PostgreSQL internal connection URL)*
        - `ALLOWED_HOSTS`: `.onrender.com`
-       - `CORS_ALLOWED_ORIGINS`: `https://<your-vercel-app>.vercel.app`
-       - `CSRF_TRUSTED_ORIGINS`: `https://<your-vercel-app>.vercel.app`
+       - `CORS_ALLOWED_ORIGINS`: `https://seap-ces-frontend.onrender.com`
+       - `CSRF_TRUSTED_ORIGINS`: `https://seap-ces-frontend.onrender.com`
        - `SESSION_COOKIE_SECURE`: `True`
        - `CSRF_COOKIE_SECURE`: `True`
        - `SECURE_HSTS_SECONDS`: `31536000`
+       - `HOD_EMAIL`: `hod@demo.com` *(auto-creates HOD on deploy, no shell needed)*
+       - `HOD_PASSWORD`: `Demo@1234`
+       - `SEED_DEMO`: `true` *(auto-seeds demo accounts and courses on startup)*
 3. Once deployed, open the Render **Shell** tab to initialize the HOD account:
    ```bash
    python manage.py create_hod hod@yourdomain.com StrongPass@1234 "Dr. Department Head" CSE

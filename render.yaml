@@ -5,7 +5,7 @@ services:
     runtime: python
     rootDir: backend
     buildCommand: ./build.sh
-    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+    startCommand: ./start.sh
     envVars:
       - key: SECRET_KEY
         generateValue: true
@@ -27,6 +27,16 @@ services:
         value: "True"
       - key: SECURE_HSTS_SECONDS
         value: "31536000"
+      - key: HOD_EMAIL
+        value: "hod@demo.com"
+      - key: HOD_PASSWORD
+        value: "Demo@1234"
+      - key: HOD_NAME
+        value: "Dr. Head of Department"
+      - key: HOD_DEPT
+        value: "CSE"
+      - key: SEED_DEMO
+        value: "true"
 
   # ── Frontend Static Site ─────────────────────────────────────────
   - type: static
