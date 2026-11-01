@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 set -e
 
 echo "==> Installing dependencies..."
@@ -10,5 +9,7 @@ python manage.py collectstatic --no-input
 echo "==> Running migrations..."
 python manage.py migrate
 
-echo "==> Build complete."
+echo "==> Ensuring HOD account exists..."
+python manage.py ensure_hod
 
+echo "==> Build complete."
